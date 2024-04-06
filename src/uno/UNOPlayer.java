@@ -1,13 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package uno;
 
-/**
- *
- * @author palak
- */
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,13 +18,16 @@ public class UNOPlayer {
         }
     }
 
-    public UNOCard playCard(int cardIndex, UNOCard currentCard) {
+    public UNOCard playCard(int cardIndex) {
         if (cardIndex >= 0 && cardIndex < hand.size()) {
-            UNOCard cardToPlay = hand.get(cardIndex);
-            if (cardToPlay.canBePlayedOn(currentCard)) {
-                hand.remove(cardIndex);
-                return cardToPlay;
-            }
+            return hand.remove(cardIndex);
+        }
+        return null;
+    }
+
+    public UNOCard getCard(int cardIndex) {
+        if (cardIndex >= 0 && cardIndex < hand.size()) {
+            return hand.get(cardIndex);
         }
         return null;
     }
@@ -52,8 +47,8 @@ public class UNOPlayer {
     public String getHandAsString() {
         StringBuilder sb = new StringBuilder();
         for (UNOCard card : hand) {
-            sb.append(card.toString() + ", ");
+            sb.append(card.toString()).append(", ");
         }
-        return sb.toString().trim();
+        return sb.length() > 0 ? sb.substring(0, sb.length() - 2) : "";
     }
 }

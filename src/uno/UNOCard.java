@@ -4,11 +4,6 @@
  */
 package uno;
 
-/**
- *
- * @author palak
- */
-
 public class UNOCard {
     private final String color;
     private final String value;

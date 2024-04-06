@@ -4,10 +4,6 @@
  */
 package uno;
 
-/**
- *
- * @author palak
- */
 import java.util.Collections;
 import java.util.Stack;
 
@@ -20,17 +16,27 @@ public class UNODeck {
     }
 
     private void initialize() {
-
         String[] colors = {"Red", "Green", "Blue", "Yellow"};
-        String[] values = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "Skip", "Reverse", "Draw Two"};
-        
+        String[] values = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "Skip", "Reverse", "Draw Two"};
+        // Add one 0 card of each color
         for (String color : colors) {
-            for (String value : values) {
-                cards.push(new UNOCard(color, value));
-                cards.push(new UNOCard(color, value)); 
+            cards.push(new UNOCard(color, "0"));
+        }
+
+        for (int i = 0; i < 2; i++) {
+            for (String color : colors) {
+                for (String value : values) {
+                    if (!value.equals("0")) {
+                        cards.push(new UNOCard(color, value));
+                    }
+                }
             }
         }
-        
+
+        for (int i = 0; i < 4; i++) {
+            cards.push(new UNOCard("Wild", "Color Changer"));
+            cards.push(new UNOCard("Wild", "Draw Four"));
+        }
         shuffle();
     }
 
@@ -39,10 +45,10 @@ public class UNODeck {
     }
 
     public UNOCard drawCard() {
-        if (!cards.isEmpty()) {
-            return cards.pop();
+        if (cards.isEmpty()) {
+            initialize(); 
+            shuffle();
         }
-        
-        return null;
+        return cards.pop();
     }
 }
